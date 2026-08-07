@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sistema Inteligente de Aquecimento Sustentável para Piscina Térmica do CEP utilizando Sensor LDR">
+    <title>Sistema Inteligente de Aquecimento - CEP</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Partículas de fundo -->
+    <div id="particles"></div>
+    
+    <!-- Navegação -->
+    <nav class="navbar glass" id="navbar">
+        <div class="nav-container">
+            <a href="#hero" class="logo">
+                <span class="logo-icon">☀️</span>
+                <span class="logo-text">CEP</span>
+            </a>
+            <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#hero">Início</a></li>
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#ldr">Sensor LDR</a></li>
+                <li><a href="#optica">Óptica</a></li>
+                <li><a href="#automacao">Automação</a></li>
+                <li><a href="#simulador">Simulador</a></li>
+                <li><a href="#sustentabilidade">Sustentabilidade</a></li>
+                <li><a href="#equipe">Equipe</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title reveal">
+                Sistema Inteligente de Aquecimento Sustentável<br>
+                <span class="highlight">da Piscina do CEP</span>
+            </h1>
+            <p class="hero-subtitle reveal">
+                Utilizando Sensor LDR, Energia Solar, Óptica e Automação.
+            </p>
+            <button class="btn-primary ripple-btn reveal" onclick="scrollToSection('sobre')">
+                Explorar Projeto
+            </button>
+        </div>
+        <div class="hero-animation">
+            <div class="sun" id="heroSun"></div>
+            <div class="solar-panel"></div>
+            <div class="light-rays"></div>
+        </div>
+    </section>
+
+    <!-- Sobre o Projeto -->
+    <section id="sobre" class="section glass-section">
+        <div class="container">
+            <h2 class="section-title reveal">Sobre o Projeto</h2>
+            <div class="sobre-content">
+                <div class="sobre-text reveal">
+                    <div class="card glass-card">
+                        <h3>🏊 O Problema</h3>
+                        <p>O aquecimento tradicional de piscinas consome grandes quantidades de energia elétrica, gerando custos elevados e impacto ambiental significativo.</p>
+                    </div>
+                    <div class="card glass-card">
+                        <h3>⚡ Desperdício de Energia</h3>
+                        <p>Sistemas convencionais funcionam continuamente, mesmo quando não há necessidade, desperdiçando recursos energéticos valiosos.</p>
+                    </div>
+                    <div class="card glass-card">
+                        <h3>🤖 Necessidade de Automação</h3>
+                        <p>A automação inteligente permite otimizar o uso de energia, ativando o sistema apenas quando condições ideais são detectadas.</p>
+                    </div>
+                    <div class="card glass-card">
+                        <h3>💡 Nossa Solução</h3>
+                        <p>Utilizamos sensor LDR para detectar luminosidade, painéis solares para captação de energia e um sistema automatizado para controle eficiente do aquecimento.</p>
+                    </div>
+                </div>
+                <div class="sobre-ilustracao reveal">
+                    <svg viewBox="0 0 400 400" class="project-svg">
+                        <defs>
+                            <linearGradient id="sunGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#FFD700"/>
+                                <stop offset="100%" style="stop-color:#FFA500"/>
+                            </linearGradient>
+                            <linearGradient id="panelGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#3B82F6"/>
+                                <stop offset="100%" style="stop-color:#06B6D4"/>
+                            </linearGradient>
+                        </defs>
+                        <!-- Sol -->
+                        <circle cx="200" cy="80" r="50" fill="url(#sunGrad)" class="sun-svg"/>
+                        <g class="sun-rays">
+                            <line x1="200" y1="20" x2="200" y2="5" stroke="#FFD700" stroke-width="3"/>
+                            <line x1="200" y1="140" x2="200" y2="155" stroke="#FFD700" stroke-width="3"/>
+                            <line x1="140" y1="80" x2="125" y2="80" stroke="#FFD700" stroke-width="3"/>
+                            <line x1="260" y1="80" x2="275" y2="80" stroke="#FFD700" stroke-width="3"/>
+                        </g>
+                        <!-- Painel Solar -->
+                        <rect x="150" y="180" width="100" height="80" rx="5" fill="url(#panelGrad)" opacity="0.9"/>
+                        <line x1="150" y1="220" x2="250" y2="220" stroke="rgba(255,255,255,0.5)" stroke-width="1"/>
+                        <line x1="200" y1="180" x2="200" y2="260" stroke="rgba(255,255,255,0.5)" stroke-width="1"/>
+                        <!-- Sensor LDR -->
+                        <circle cx="200" cy="320" r="20" fill="#8B4513"/>
+                        <circle cx="200" cy="320" r="10" fill="#DAA520"/>
+                        <!-- Piscina -->
+                        <ellipse cx="200" cy="370" rx="80" ry="20" fill="#3B82F6" opacity="0.6"/>
+                        <!-- Linhas de luz -->
+                        <line x1="200" y1="130" x2="200" y2="180" stroke="#FFD700" stroke-width="2" opacity="0.6" class="light-beam"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sensor LDR -->
+    <section id="ldr" class="section">
+        <div class="container">
+            <h2 class="section-title reveal">Como Funciona o Sensor LDR</h2>
+            <p class="section-subtitle reveal">O LDR (Light Dependent Resistor) é um resistor que varia sua resistência conforme a intensidade da luz.</p>
+            
+            <div class="ldr-simulator glass-card reveal">
+                <div class="simulator-display">
+                    <div class="sim-elements">
+                        <div class="sim-sun" id="simSun">
+                            <div class="sun-face"></div>
+                        </div>
+                        <div class="sim-panel" id="simPanel">
+                            <div class="panel-cells"></div>
+                        </div>
+                        <div class="sim-ldr" id="simLdr">
+                            <span class="ldr-label">LDR</span>
+                        </div>
+                        <div class="sim-led" id="simLed">
+                            <div class="led-light"></div>
+                        </div>
+                    </div>
+                    <div class="sim-graph">
+                        <canvas id="ldrGraph" width="300" height="150"></canvas>
+                    </div>
+                </div>
+                
+                <div class="sim-controls">
+                    <label for="lightSlider" class="slider-label">
+                        ☀️ Luz Solar
+                        <span id="lightValue">50%</span>
+                    </label>
+                    <input type="range" id="lightSlider" min="0" max="100" value="50" class="custom-slider">
+                    
+                    <div class="sim-readings">
+                        <div class="reading-card">
+                            <span class="reading-label">Luminosidade</span>
+                            <span class="reading-value" id="luminosityValue">50%</span>
+                        </div>
+                        <div class="reading-card">
+                            <span class="reading-label">Resistência</span>
+                            <span class="reading-value" id="resistanceValue">Média</span>
+                        </div>
+                        <div class="reading-card">
+                            <span class="reading-label">Energia Produzida</span>
+                            <span class="reading-value" id="energyValue">Média</span>
+                        </div>
+                    </div>
+                    
+                    <div class="energy-bar">
+                        <div class="energy-fill" id="energyFill"></div>
+                    </div>
+                    
+                    <p class="sim-explanation">💡 O LDR diminui sua resistência quando recebe mais luz.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Simulação Inteligente -->
+    <section id="simulador" class="section glass-section">
+        <div class="container">
+            <h2 class="section-title reveal">Simulação Inteligente</h2>
+            <p class="section-subtitle reveal">Veja como o sistema responde automaticamente às mudanças de luminosidade ao longo do dia.</p>
+            
+            <div class="smart-simulator glass-card reveal">
+                <button class="btn-secondary ripple-btn" id="simulateDayBtn">
+                    🔄 Simular um Dia
+                </button>
+                
+                <div class="day-cycle">
+                    <div class="cycle-indicator" id="cycleIndicator">
+                        <span id="cyclePhase">Manhã</span>
+                    </div>
+                    
+                    <div class="cycle-visual">
+                        <div class="sky" id="skyVisual">
+                            <div class="sky-sun" id="skySun"></div>
+                            <div class="sky-moon" id="skyMoon"></div>
+                            <div class="stars" id="stars"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="system-status">
+                        <div class="status-item">
+                            <span class="status-icon">🔆</span>
+                            <span class="status-label">Luminosidade</span>
+                            <span class="status-value" id="sysLuminosity">50%</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-icon">⚡</span>
+                            <span class="status-label">Painel Solar</span>
+                            <span class="status-value" id="sysPanel">Ativo</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-icon">🔌</span>
+                            <span class="status-label">Sensor LDR</span>
+                            <span class="status-value" id="sysLdr">Detectando</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-icon">🔧</span>
+                            <span class="status-label">Aquecimento</span>
+                            <span class="status-value" id="sysHeating">Desligado</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-icon">🌡️</span>
+                            <span class="status-label">Temperatura</span>
+                            <span class="status-value" id="sysTemp">28°C</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="simulation-results" id="simResults">
+                    <div class="result-badge success">
+                        <span>✔</span> Sistema Econômico
+                    </div>
+                    <div class="result-badge success">
+                        <span>✔</span> Energia Aproveitada
+                    </div>
+                    <div class="result-badge success">
+                        <span>✔</span> Temperatura da Piscina
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Óptica -->
+    <section id="optica" class="section">
+        <div class="container">
+            <h2 class="section-title reveal">Explicação da Óptica</h2>
+            <p class="section-subtitle reveal">A óptica estuda o comportamento da luz e suas interações com a matéria.</p>
+            
+            <div class="optica-cards reveal">
+                <div class="optica-card glass-card">
+                    <div class="optica-icon">🔵</div>
+                    <h3>Absorção</h3>
+                    <p>Superfícies pretas absorvem mais energia luminosa, convertendo-a em calor.</p>
+                    <div class="optica-aplicacao">
+                        <strong>Aplicação:</strong> Painéis solares escuros maximizam a absorção de energia.
+                    </div>
+                </div>
+                
+                <div class="optica-card glass-card">
+                    <div class="optica-icon">🪞</div>
+                    <h3>Reflexão</h3>
+                    <p>Superfícies claras e polidas refletem a luz, mudando sua direção.</p>
+                    <div class="optica-aplicacao">
+                        <strong>Aplicação:</strong> Espelhos e superfícies refletoras concentram luz solar.
+                    </div>
+                </div>
+                
+                <div class="optica-card glass-card">
+                    <div class="optica-icon">💎</div>
+                    <h3>Refração</h3>
+                    <p>Mudança da direção da luz ao atravessar materiais de diferentes densidades.</p>
+                    <div class="optica-aplicacao">
+                        <strong>Aplicação:</strong> Lentes focam a luz em células solares.
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Disco de Newton -->
+            <div class="newton-section glass-card reveal">
+                <h3>🎨 Disco de Newton</h3>
+                <p>O Disco de Newton demonstra que a luz branca é composta por todas as cores do espectro visível. Quando girado rapidamente, as cores se misturam criando a ilusão de branco.</p>
+                
+                <div class="newton-disk-container">
+                    <div class="newton-disk" id="newtonDisk">
+                        <div class="disk-segment segment-1"></div>
+                        <div class="disk-segment segment-2"></div>
+                        <div class="disk-segment segment-3"></div>
+                        <div class="disk-segment segment-4"></div>
+                        <div class="disk-segment segment-5"></div>
+                        <div class="disk-segment segment-6"></div>
+                        <div class="disk-segment segment-7"></div>
+                    </div>
+                </div>
+                
+                <button class="btn-secondary ripple-btn" id="spinDiskBtn">
+                    🌀 Girar Disco
+                </button>
+            </div>
+            
+            <!-- Câmara Escura -->
+            <div class="camera-section glass-card reveal">
+                <h3>📷 Câmara Escura</h3>
+                <p>A câmara escura demonstra como a luz viaja em linha reta e forma imagens invertidas.</p>
+                
+                <div class="camera-box">
+                    <div class="camera-object" id="cameraObject">
+                        <div class="object-arrow">↑</div>
+                        <span>Objeto</span>
+                    </div>
+                    <div class="camera-body">
+                        <div class="camera-hole"></div>
+                        <div class="camera-screen" id="cameraScreen">
+                            <div class="inverted-image">↓</div>
+                        </div>
+                    </div>
+                    <div class="light-rays-camera">
+                        <div class="ray-top"></div>
+                        <div class="ray-bottom"></div>
+                    </div>
+                </div>
+                
+                <label class="slider-label">
+                    Mover Objeto
+                    <input type="range" id="cameraSlider" min="0" max="100" value="50" class="custom-slider">
+                </label>
+            </div>
+        </div>
+    </section>
+
+    <!-- Automação -->
+    <section id="automacao" class="section glass-section">
+        <div class="container">
+            <h2 class="section-title reveal">Automação</h2>
+            <p class="section-subtitle reveal">Fluxo completo do sistema inteligente de aquecimento.</p>
+            
+            <div class="flowchart glass-card reveal">
+                <div class="flow-step">
+                    <div class="flow-icon sun-icon">☀️</div>
+                    <span>Sol</span>
+                </div>
+                <div class="flow-arrow animated-line">↓</div>
+                
+                <div class="flow-step">
+                    <div class="flow-icon ldr-icon">📷</div>
+                    <span>Sensor LDR</span>
+                </div>
+                <div class="flow-arrow animated-line">↓</div>
+                
+                <div class="flow-step">
+                    <div class="flow-icon arduino-icon">🔧</div>
+                    <span>Arduino</span>
+                </div>
+                <div class="flow-arrow animated-line">↓</div>
+                
+                <div class="flow-step">
+                    <div class="flow-icon rele-icon">⚡</div>
+                    <span>Relé</span>
+                </div>
+                <div class="flow-arrow animated-line">↓</div>
+                
+                <div class="flow-step">
+                    <div class="flow-icon bomba-icon">💧</div>
+                    <span>Bomba</span>
+                </div>
+                <div class="flow-arrow animated-line">↓</div>
+                
+                <div class="flow-step">
+                    <div class="flow-icon heating-icon">🔥</div>
+                    <span>Aquecimento</span>
+                </div>
+                <div class="flow-arrow animated-line">↓</div>
+                
+                <div class="flow-step">
+                    <div class="flow-icon piscina-icon">🏊</div>
+                    <span>Piscina</span>
+                </div>
+            </div>
+            
+            <div class="flow-explanation">
+                <div class="explain-item reveal">
+                    <strong>1. Captação:</strong> O Sol fornece energia luminosa.
+                </div>
+                <div class="explain-item reveal">
+                    <strong>2. Detecção:</strong> O sensor LDR mede a intensidade da luz.
+                </div>
+                <div class="explain-item reveal">
+                    <strong>3. Processamento:</strong> O Arduino analisa os dados do sensor.
+                </div>
+                <div class="explain-item reveal">
+                    <strong>4. Controle:</strong> O relé atua como interruptor automático.
+                </div>
+                <div class="explain-item reveal">
+                    <strong>5. Circulação:</strong> A bomba movimenta a água.
+                </div>
+                <div class="explain-item reveal">
+                    <strong>6. Aquecimento:</strong> A energia solar aquece a água.
+                </div>
+                <div class="explain-item reveal">
+                    <strong>7. Resultado:</strong> Piscina aquecida de forma sustentável.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Código Exemplo -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title reveal">Código Exemplo</h2>
+            <p class="section-subtitle reveal">Código Arduino para leitura do sensor LDR.</p>
+            
+            <div class="code-container glass-card reveal">
+                <div class="code-header">
+                    <span class="code-title">arduino.ino</span>
+                    <button class="btn-copy ripple-btn" id="copyCodeBtn">
+                        📋 Copiar Código
+                    </button>
+                </div>
+                <pre><code class="language-cpp" id="arduinoCode">int ldr = A0;
+int led = 13;
+
+void setup() {
+    Serial.begin(9600);
+    pinMode(led, OUTPUT);
+}
+
+void loop() {
+    int luz = analogRead(ldr);
+    
+    if(luz > 600){
+        Serial.println("Alta luminosidade");
+        digitalWrite(led, HIGH);
+    } else {
+        Serial.println("Baixa luminosidade");
+        digitalWrite(led, LOW);
+    }
+    
+    delay(500);
+}</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sustentabilidade -->
+    <section id="sustentabilidade" class="section glass-section">
+        <div class="container">
+            <h2 class="section-title reveal">Sustentabilidade</h2>
+            <p class="section-subtitle reveal">Impacto positivo do nosso sistema no meio ambiente.</p>
+            
+            <div class="sustentabilidade-grid reveal">
+                <div class="sust-card glass-card">
+                    <div class="sust-icon">💰</div>
+                    <h3>Economia de Energia</h3>
+                    <p>Redução significativa no consumo de energia elétrica convencional.</p>
+                </div>
+                
+                <div class="sust-card glass-card">
+                    <div class="sust-icon">📉</div>
+                    <h3>Redução de Custos</h3>
+                    <p>Diminuição dos gastos operacionais com aquecimento da piscina.</p>
+                </div>
+                
+                <div class="sust-card glass-card">
+                    <div class="sust-icon">☀️</div>
+                    <h3>Uso da Energia Solar</h3>
+                    <p>Aproveitamento de fonte renovável e limpa de energia.</p>
+                </div>
+                
+                <div class="sust-card glass-card">
+                    <div class="sust-icon">🤖</div>
+                    <h3>Automação Inteligente</h3>
+                    <p>Otimização automática do uso de recursos energéticos.</p>
+                </div>
+                
+                <div class="sust-card glass-card">
+                    <div class="sust-icon">🌍</div>
+                    <h3>Impacto Ambiental Positivo</h3>
+                    <p>Menor emissão de carbono e redução da pegada ecológica.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Acessibilidade -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title reveal">Acessibilidade</h2>
+            <p class="section-subtitle reveal">Nosso site é projetado para ser acessível a todos os usuários.</p>
+            
+            <div class="acessibilidade-content glass-card reveal">
+                <div class="accessibility-controls">
+                    <button class="btn-accessibility ripple-btn" id="contrastBtn">
+                        🔲 Modo Alto Contraste
+                    </button>
+                    <button class="btn-accessibility ripple-btn" id="increaseFontBtn">
+                        A+ Aumentar Fonte
+                    </button>
+                    <button class="btn-accessibility ripple-btn" id="decreaseFontBtn">
+                        A- Diminuir Fonte
+                    </button>
+                </div>
+                
+                <div class="accessibility-features">
+                    <div class="feature-item">
+                        <span class="feature-icon">🔲</span>
+                        <span>Alto contraste para melhor visibilidade</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">📝</span>
+                        <span>Fontes ajustáveis conforme necessidade</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">⌨️</span>
+                        <span>Navegação completa por teclado</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🖼️</span>
+                        <span>Textos alternativos em imagens</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">📱</span>
+                        <span>Totalmente responsivo</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🔘</span>
+                        <span>Botões grandes e fáceis de clicar</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">📖</span>
+                        <span>Boa legibilidade em qualquer dispositivo</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Estatísticas -->
+    <section class="section glass-section">
+        <div class="container">
+            <h2 class="section-title reveal">Estatísticas</h2>
+            
+            <div class="stats-grid reveal">
+                <div class="stat-card glass-card">
+                    <div class="stat-icon">☀️</div>
+                    <div class="stat-number" data-target="95">0</div>
+                    <div class="stat-label">Eficiência Solar (%)</div>
+                </div>
+                
+                <div class="stat-card glass-card">
+                    <div class="stat-icon">♻️</div>
+                    <div class="stat-number" data-target="60">0</div>
+                    <div class="stat-label">Economia de Energia (%)</div>
+                </div>
+                
+                <div class="stat-card glass-card">
+                    <div class="stat-icon">🌡️</div>
+                    <div class="stat-number" data-target="32">0</div>
+                    <div class="stat-label">Temperatura Ideal (°C)</div>
+                </div>
+                
+                <div class="stat-card glass-card">
+                    <div class="stat-icon">⚡</div>
+                    <div class="stat-number" data-target="80">0</div>
+                    <div class="stat-label">Automação (%)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title reveal">Perguntas Frequentes</h2>
+            
+            <div class="faq-container glass-card reveal">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        O que é um LDR?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>LDR significa Light Dependent Resistor (Resistor Dependente de Luz). É um componente eletrônico cuja resistência elétrica varia conforme a intensidade da luz incidente. Quando há mais luz, a resistência diminui; quando há menos luz, a resistência aumenta.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Como funciona o sensor LDR?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>O LDR é feito de material semicondutor (geralmente sulfeto de cádmio). Quando os fótons da luz atingem o material, eles liberam elétrons, permitindo que a corrente elétrica flua mais facilmente. Isso reduz a resistência do componente proporcionalmente à intensidade da luz.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Por que usar energia solar?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>A energia solar é renovável, limpa e gratuita após o investimento inicial nos equipamentos. Ela reduz a dependência de fontes não renováveis, diminui custos operacionais e minimiza o impacto ambiental, sendo ideal para sistemas sustentáveis como o nosso.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Como ocorre o aquecimento?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>A água da piscina circula através de tubos expostos à radiação solar ou passa por coletores solares. A energia luminosa é convertida em energia térmica, aquecendo a água. O sistema automatizado controla quando ativar a bomba baseado na luminosidade detectada pelo LDR.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Qual a importância da óptica?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>A óptica é fundamental para entender como a luz interage com os materiais do sistema. Compreender absorção, reflexão e refração permite otimizar o design dos painéis solares, maximizar a captação de energia e melhorar a eficiência geral do sistema de aquecimento.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Equipe -->
+    <section id="equipe" class="section glass-section">
+        <div class="container">
+            <h2 class="section-title reveal">Nossa Equipe</h2>
+            
+            <div class="equipe-grid reveal">
+                <div class="equipe-card glass-card">
+                    <div class="equipe-foto">
+                        <div class="foto-placeholder">👤</div>
+                    </div>
+                    <h3>Nome do Aluno 1</h3>
+                    <p class="equipe-funcao">Desenvolvedor Front-end</p>
+                </div>
+                
+                <div class="equipe-card glass-card">
+                    <div class="equipe-foto">
+                        <div class="foto-placeholder">👤</div>
+                    </div>
+                    <h3>Nome do Aluno 2</h3>
+                    <p class="equipe-funcao">Desenvolvedor Back-end</p>
+                </div>
+                
+                <div class="equipe-card glass-card">
+                    <div class="equipe-foto">
+                        <div class="foto-placeholder">👤</div>
+                    </div>
+                    <h3>Nome do Aluno 3</h3>
+                    <p class="equipe-funcao">Designer & UX</p>
+                </div>
+                
+                <div class="equipe-card glass-card">
+                    <div class="equipe-foto">
+                        <div class="foto-placeholder">👤</div>
+                    </div>
+                    <h3>Nome do Aluno 4</h3>
+                    <p class="equipe-funcao">Pesquisador</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>Projeto Integrador</h3>
+                    <p>Sistema Inteligente de Aquecimento Sustentável</p>
+                </div>
+                <div class="footer-school">
+                    <h4>CEP</h4>
+                    <p>Centro Educacional</p>
+                </div>
+                <div class="footer-year">
+                    <span>2026</span>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Projeto Integrador CEP. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Botão Voltar ao Topo -->
+    <button class="back-to-top" id="backToTop" aria-label="Voltar ao topo">
+        ↑
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>
