@@ -1,1 +1,2 @@
-Nothing should be ignored since the changes only include source files (.js, .css, .html) without any build artifacts, dependencies, or temporary files.
+# No build artifacts, dependencies, or temporary files detected in changes
+# Only source/config files present, so no additional ignores needed
