@@ -135,7 +135,8 @@ section {
   top: 0;
   width: 560px;
   height: 560px;
-  margin: -280px 0 0 -280px;
+  margin: 0;
+  transform: translate(-50%, -50%);
   pointer-events: none;
   z-index: 1;
   background: radial-gradient(circle, rgba(255, 181, 74, 0.09), rgba(255, 181, 74, 0.03) 40%, transparent 70%);
