@@ -454,7 +454,7 @@ footer{border-top:1px solid var(--line);background:#05070b;position:relative;ove
 
 <div id="progress"></div>
 <div class="noise" aria-hidden="true"></div>
-<div id="torch" aria-hidden="true"></div>
+<!-- <div id="torch" aria-hidden="true"></div> --> <!-- Elemento torch removido -->
 
 <!-- ================= HEADER ================= -->
 <header id="topo">
@@ -1225,13 +1225,6 @@ addEventListener('scroll',()=>{
   toTop.classList.toggle('show', h.scrollTop>700);
 },{passive:true});
 toTop.addEventListener('click',()=>scrollTo({top:0,behavior:RM?'auto':'smooth'}));
-
-/* ---------- tocha (cursor de luz) ---------- */
-if(!RM && matchMedia('(pointer:fine)').matches){
-  const t=$('#torch'); let tx=innerWidth/2, ty=innerHeight/2, cx=tx, cy=ty, on=false;
-  addEventListener('mousemove',e=>{ tx=e.clientX; ty=e.clientY; if(!on){ on=true; t.style.opacity=1; }});
-  (function loop(){ cx+=(tx-cx)*.12; cy+=(ty-cy)*.12; t.style.transform=`translate(${cx}px,${cy}px)`; requestAnimationFrame(loop); })();
-}
 
 /* ---------- ticker duplicado ---------- */
 const tk=$('#tickerTrack'); tk.innerHTML+=tk.innerHTML;
