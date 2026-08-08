@@ -537,6 +537,140 @@
     images.forEach(img => imageObserver.observe(img));
   }
 
+
+  // ========== ANIMAÇÕES DE FUNDO ==========
+  function initBackgroundAnimations() {
+    // Cria container de animação se não existir
+    let container = document.getElementById('bgAnimation');
+    if (!container) {
+      container = document.createElement('div');
+      container.id = 'bgAnimation';
+      container.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;';
+      document.body.insertBefore(container, document.body.firstChild);
+    }
+
+    // Animação de ondas/luzes suaves
+    createWaves(container);
+    
+    // Partículas flutuantes
+    createFloatingParticles(container);
+    
+    // Pulsos de luz
+    createLightPulses(container);
+  }
+
+  function createWaves(container) {
+    const waveCount = 5;
+    for (let i = 0; i < waveCount; i++) {
+      const wave = document.createElement('div');
+      const size = Math.random() * 600 + 400;
+      const x = Math.random() * 100;
+      const y = Math.random() * 100;
+      const duration = Math.random() * 15 + 20;
+      const colors = [
+        'rgba(255, 181, 74, 0.08)',
+        'rgba(92, 232, 197, 0.06)',
+        'rgba(255, 139, 31, 0.05)',
+        'rgba(148, 170, 200, 0.04)'
+      ];
+      
+      wave.style.cssText = `
+        position: absolute;
+        width: ${size}px;
+        height: ${size}px;
+        background: radial-gradient(ellipse, ${colors[i % colors.length]}, transparent 70%);
+        border-radius: 50%;
+        left: ${x}%;
+        top: ${y}%;
+        animation: waveFloat ${duration}s ease-in-out ${i * 3}s infinite;
+        opacity: ${Math.random() * 0.5 + 0.3};
+      `;
+      
+      container.appendChild(wave);
+    }
+  }
+
+  function createFloatingParticles(container) {
+    const particleCount = 40;
+    for (let i = 0; i < particleCount; i++) {
+      const particle = document.createElement('div');
+      const size = Math.random() * 5 + 2;
+      const x = Math.random() * 100;
+      const y = Math.random() * 100;
+      const duration = Math.random() * 25 + 15;
+      const delay = Math.random() * 10;
+      const brightness = Math.random() * 0.5 + 0.2;
+      
+      particle.style.cssText = `
+        position: absolute;
+        width: ${size}px;
+        height: ${size}px;
+        background: radial-gradient(circle, rgba(255, 181, 74, ${brightness}), transparent 70%);
+        border-radius: 50%;
+        left: ${x}%;
+        top: ${y}%;
+        animation: particleFloat ${duration}s ease-in-out ${delay}s infinite;
+        box-shadow: 0 0 ${size * 2}px rgba(255, 181, 74, ${brightness});
+      `;
+      
+      container.appendChild(particle);
+    }
+  }
+
+  function createLightPulses(container) {
+    const pulseCount = 8;
+    for (let i = 0; i < pulseCount; i++) {
+      const pulse = document.createElement('div');
+      const size = Math.random() * 200 + 100;
+      const x = Math.random() * 100;
+      const y = Math.random() * 100;
+      const duration = Math.random() * 8 + 6;
+      const delay = Math.random() * 4;
+      const colors = ['rgba(92, 232, 197, 0.1)', 'rgba(255, 181, 74, 0.08)'];
+      
+      pulse.style.cssText = `
+        position: absolute;
+        width: ${size}px;
+        height: ${size}px;
+        background: radial-gradient(circle, ${colors[i % colors.length]}, transparent 70%);
+        border-radius: 50%;
+        left: ${x}%;
+        top: ${y}%;
+        animation: lightPulse ${duration}s ease-in-out ${delay}s infinite;
+      `;
+      
+      container.appendChild(pulse);
+    }
+  }
+
+  // Adiciona keyframes dinâmicos
+  (function addKeyframes() {
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes waveFloat {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        25% { transform: translate(5%, 8%) scale(1.1); }
+        50% { transform: translate(-3%, -5%) scale(0.95); }
+        75% { transform: translate(-7%, 3%) scale(1.05); }
+      }
+      @keyframes particleFloat {
+        0%, 100% { transform: translate(0, 0) rotate(0deg); opacity: 0.4; }
+        25% { transform: translate(10%, -15%) rotate(90deg); opacity: 0.8; }
+        50% { transform: translate(-5%, -25%) rotate(180deg); opacity: 0.5; }
+        75% { transform: translate(-12%, -8%) rotate(270deg); opacity: 0.7; }
+      }
+      @keyframes lightPulse {
+        0%, 100% { transform: scale(0.8); opacity: 0.3; }
+        50% { transform: scale(1.3); opacity: 0.7; }
+      }
+      @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-20px); }
+      }
+    `;
+    document.head.appendChild(style);
+  })();
+
   // ========== INICIALIZAÇÃO ==========
   function init() {
     // Aguarda DOM estar pronto
@@ -544,13 +678,14 @@
       document.addEventListener('DOMContentLoaded', init);
       return;
     }
-    
+
     // Inicializa todas as funcionalidades
     initBenchSlider();
     initReveal();
     initProgress();
     initHeaderScroll();
-    initTorch();
+    // initTorch(); // Efeito de tocha removido
+    initBackgroundAnimations(); // Nova animação de fundo
     initCodeTabs();
     initCopyBtn();
     initSerialMonitor();
@@ -561,16 +696,16 @@
     initButtonRipples();
     initSmoothScroll();
     initLazyLoading();
-    
+
     // Efeitos visuais opcionais
     // initTiltEffect();
     // initParticles();
     // initNumberAnimations();
-    
+
     // Atualiza simulador inicial
     updateSim();
-    
-    console.log('%c🔆 SENSOR LDR — Glassmorphism Edition', 'color: #ffb54a; font-size: 16px; font-weight: bold;');
+
+    console.log('%c🔆 SENSOR LDR — Animações de Fundo', 'color: #ffb54a; font-size: 16px; font-weight: bold;');
     console.log('%cSite carregado com sucesso!', 'color: #5ce8c5;');
   }
 
