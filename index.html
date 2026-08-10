@@ -104,8 +104,8 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:4px;bac
 .bench-reads b.amber{color:var(--amber)}
 
 /* --- ticker --- */
-.ticker{margin-top:70px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;background:rgba(15,21,32,.5)}
-.ticker-track{display:flex;width:max-content;animation:tick 30s linear infinite}
+.ticker{margin-top:70px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;background:rgba(15,21,32,.5);padding-left:0;padding-right:0}
+.ticker-track{display:flex;width:max-content;animation:tick 30s linear infinite;padding-left:0}
 .ticker:hover .ticker-track{animation-play-state:paused}
 @keyframes tick{to{transform:translateX(-50%)}}
 .ticker span{font-family:var(--fm);font-size:12px;letter-spacing:.18em;color:var(--muted);padding:14px 0 14px 34px;white-space:nowrap;text-transform:uppercase}
@@ -459,7 +459,7 @@ footer{border-top:1px solid var(--line);background:#05070b;position:relative;ove
 <!-- ================= HEADER ================= -->
 <header id="topo">
   <div class="hwrap">
-    <a class="logo" href="#inicio"><span class="led-nav"></span>LDR<span style="color:var(--amber)">.LAB</span><em>FOTORRESISTOR</em></a>
+    <a class="logo" href="#inicio"><span class="led-nav"></span>LDR<span style="color:var(--amber)">LAB</span><em>FOTORRESISTOR</em></a>
     <button id="navBtn" aria-label="Abrir menu">☰</button>
     <nav aria-label="Principal">
       <ul>
@@ -485,7 +485,7 @@ footer{border-top:1px solid var(--line);background:#05070b;position:relative;ove
       <p class="eyebrow rv">Guia interativo de componentes · Nº 01</p>
       <h1 class="hero-title">
         <span class="ht-line ht-small" id="scr1" data-text="O SENSOR">O SENSOR</span>
-        <span class="ht-line ht-big"><span id="scr2" data-text="LDR">LDR</span><span class="acc">.</span></span>
+        <span class="ht-line ht-big"><span id="scr2" data-text="LDR">LDR</span></span>
       </h1>
       <p class="hero-lead rv d1">Um grão de <strong>sulfeto de cádmio</strong> que transforma claridade em resistência elétrica: quanto mais luz, menos ohms. É esse componente de centavos que faz postes acenderem sozinhos ao entardecer — e você vai entendê-lo por completo nesta página.</p>
       <div class="hero-ctas rv d2">
@@ -550,6 +550,9 @@ footer{border-top:1px solid var(--line);background:#05070b;position:relative;ove
   <div class="ticker" aria-hidden="true">
     <div class="ticker-track" id="tickerTrack">
       <span>Sulfeto de cádmio · CdS</span><span>≥ 1 MΩ no escuro</span><span>≈ 500 Ω sob sol pleno</span>
+      <span>pico espectral 540 nm</span><span>sem polaridade</span><span>resposta em ~20 ms</span>
+      <span>divisor de tensão</span><span>A0 → 0 a 1023</span><span>fotocondutividade desde 1873</span>
+      <span>relaxamento lento no escuro</span><span>Sulfeto de cádmio · CdS</span><span>≥ 1 MΩ no escuro</span><span>≈ 500 Ω sob sol pleno</span>
       <span>pico espectral 540 nm</span><span>sem polaridade</span><span>resposta em ~20 ms</span>
       <span>divisor de tensão</span><span>A0 → 0 a 1023</span><span>fotocondutividade desde 1873</span>
       <span>relaxamento lento no escuro</span>
@@ -1268,7 +1271,7 @@ void loop() {
   <span class="fwater" aria-hidden="true">LDR</span>
   <div class="fgrid">
     <div>
-      <a class="logo" href="#inicio" style="margin-bottom:18px"><span class="led-nav"></span>LDR<span style="color:var(--amber)">.LAB</span></a>
+      <a class="logo" href="#inicio" style="margin-bottom:18px"><span class="led-nav"></span>LDR<span style="color:var(--amber)">LAB</span></a>
       <p style="margin-top:14px">Enciclopédia interativa do fotorresistor: da física do sulfeto de cádmio à luminária acendendo na sua bancada. Feita para estudantes, makers e curiosos da eletrônica.</p>
     </div>
     <div>
@@ -1298,7 +1301,7 @@ void loop() {
     </div>
   </div>
   <div class="fbottom">
-    <span>© 2026 LDR.LAB — Conteúdo educacional em português</span>
+    <span>© 2026 LDRLAB — Conteúdo educacional em português</span>
     <span>Feito com luz, ohms e café ☕</span>
   </div>
 </footer>
