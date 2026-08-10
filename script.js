@@ -670,6 +670,93 @@
     `;
     document.head.appendChild(style);
   })();
+  // ========== PISCINA DO CEP — SIMULADOR ==========
+function initPoolSim() {
+  const solSlider = $('#poolSolSlider');
+  const targetSlider = $('#poolTargetSlider');
+  if (!solSlider || !targetSlider) return;
+
+  let sol = 70;
+  let target = 30;
+  let temp = 22;
+
+  function updatePool() {
+    const hasSun = sol >= 30;
+    const pumpOn = hasSun && temp < target;
+
+    if (pumpOn) {
+      temp += 0.2 + (sol / 100) * 0.6;
+      if (temp > target) temp = target;
+    } else {
+      const ambient = hasSun ? 24 : 17;
+      temp += (ambient - temp) * 0.015;
+    }
+    temp = Math.max(14, Math.min(44, temp));
+
+    let status, ledClass, sunTxt;
+    if (!hasSun) {
+      status = '☁ POUCO SOL — sistema em espera'; ledClass = 'low';
+    } else if (temp >= target - 0.05) {
+      status = '✔ TEMPERATURA ATINGIDA'; ledClass = 'done';
+    } else {
+      status = '● AQUECENDO — bomba ligada'; ledClass = 'on';
+    }
+
+    if (sol >= 65) sunTxt = '☀️';
+    else if (sol >= 30) sunTxt = '🌤️';
+    else sunTxt = '☁️';
+
+    $('#poolSolVal').textContent = sol + '%';
+    $('#poolTempVal').textContent = temp.toFixed(1) + '°C';
+    $('#poolTargetVal').textContent = target + '°C';
+    $('#poolStatus').textContent = status;
+    $('#poolSunTxt').textContent = sunTxt;
+
+    const pump = $('#poolPump');
+    pump.textContent = pumpOn ? 'BOMBA · LIGADA ▶' : 'BOMBA · DESLIGADA ⏸';
+    pump.classList.toggle('on', pumpOn);
+
+    const led = $('#poolLed');
+    led.classList.remove('on', 'done', 'low');
+    led.classList.add(ledClass);
+
+    const water = $('#poolWater');
+    if (water) {
+      const ratio = Math.min(Math.max((temp - 14) / (target - 14), 0), 1);
+      const hue = 195 - ratio * 175;
+      water.style.background = `linear-gradient(180deg, hsla(${hue},80%,55%,.55), hsla(${hue},80%,38%,.75))`;
+    }
+  }
+
+  solSlider.addEventListener('input', e => { sol = parseInt(e.target.value, 10); updatePool(); });
+  targetSlider.addEventListener('input', e => {
+    target = parseInt(e.target.value, 10);
+    const lbl = $('#poolTargetLbl'); if (lbl) lbl.textContent = target + '°C';
+    updatePool();
+  });
+
+  setInterval(updatePool, 500);
+  updatePool();
+}
+
+// ========== PISCINA — COPIAR CÓDIGO ==========
+function initPoolCopy() {
+  const btn = $('#poolCopyBtn');
+  if (!btn) return;
+  btn.addEventListener('click', function () {
+    const code = $('#poolCode')?.innerText || '';
+    const done = () => {
+      this.textContent = 'COPIADO ✔';
+      setTimeout(() => { this.textContent = 'COPIAR'; }, 1600);
+    };
+    if (navigator.clipboard) navigator.clipboard.writeText(code).then(done);
+    else {
+      const ta = document.createElement('textarea');
+      ta.value = code; document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); document.body.removeChild(ta); done();
+    }
+  });
+}
 
   // ========== INICIALIZAÇÃO ==========
   function init() {
@@ -696,6 +783,8 @@
     initButtonRipples();
     initSmoothScroll();
     initLazyLoading();
+    initPoolSim();
+    initPoolCopy();
 
     // Efeitos visuais opcionais
     // initTiltEffect();

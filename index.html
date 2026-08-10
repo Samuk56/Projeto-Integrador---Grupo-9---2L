@@ -468,6 +468,7 @@ footer{border-top:1px solid var(--line);background:#05070b;position:relative;ove
         <li><a href="#simulador">Bancada</a></li>
         <li><a href="#datasheet">Datasheet</a></li>
         <li><a href="#aplicacoes">Aplicações</a></li>
+        <li><a href="#piscina">Piscina</a></li>
         <li><a href="#arduino">Arduino</a></li>
         <li><a href="#videos">Vídeos</a></li>
         <li><a href="#galeria">Galeria</a></li>
@@ -903,6 +904,151 @@ footer{border-top:1px solid var(--line);background:#05070b;position:relative;ove
         <div class="txt"><span class="cat">Eletrônica de consumo</span><h3>Brilho automático</h3><p>Displays e luminárias antigas ajustavam o brilho conforme o ambiente.</p></div>
       </article>
     </div>
+  </div>
+</section>
+
+<!-- ══════════ CASE · PISCINA DO CEP ══════════ -->
+<section id="piscina">
+  <div class="section-wrap">
+
+    <div class="section-header rv">
+      <span class="section-tag">[ CASE ] · Projeto da nossa casa</span>
+      <h2 class="section-title">Aquecimento inteligente da <span style="color:var(--cyan);text-shadow:0 0 40px rgba(92,232,197,.3)">Piscina do CEP</span></h2>
+      <p class="section-desc">O mesmo LDR de centavos que acende postes pode ajudar a aquecer a água — usando o Sol como fonte de energia e a automação para não desperdiçar nada.</p>
+    </div>
+
+    <!-- texto base -->
+    <div class="card rv" style="max-width:860px;margin:0 auto 40px;">
+      <p>O sistema utiliza um <strong style="color:var(--amber)">LDR (sensor de luminosidade)</strong> para identificar a intensidade da luz solar e auxiliar no controle do aquecimento da piscina. Quando há uma quantidade adequada de luz, o sistema pode acionar automaticamente uma <strong>bomba</strong>, fazendo a água circular por tubos ou placas expostas ao Sol, onde ela absorve calor antes de retornar à piscina.</p>
+      <p style="margin-top:12px">Um <strong style="color:var(--cyan)">sensor de temperatura</strong> permite monitorar a água e controlar o funcionamento do sistema, evitando aquecimento desnecessário. Já o <strong>LED</strong> funciona como indicador visual, mostrando se o sistema está aquecendo, se a temperatura desejada foi atingida ou se há pouca luminosidade.</p>
+      <p style="margin-top:12px">Dessa forma, o LDR contribui para a <strong>automação e eficiência do sistema</strong>, aproveitando a energia solar para auxiliar no aquecimento da piscina do CEP.</p>
+    </div>
+
+    <!-- papel de cada componente -->
+    <div class="grid-3 rv">
+      <div class="card">
+        <div class="card-icon">🌤️</div>
+        <h3>O papel do LDR</h3>
+        <p>É o “olho” do sistema. Ele mede a intensidade da luz solar: quando o dia está claro o bastante, autoriza o acionamento da bomba; quando nubla ou anoitece, desliga tudo para não gastar energia à toa.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🌡️</div>
+        <h3>Sensor de temperatura</h3>
+        <p>Monitora a água em tempo real. Se a piscina já atingiu a temperatura desejada, ele manda o sistema parar — evitando superaquecimento e desperdício.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">💡</div>
+        <h3>LED indicador</h3>
+        <p>Mostra o estado do sistema de relance: verde = aquecendo, ciano = temperatura atingida, vermelho piscando = pouca luminosidade.</p>
+      </div>
+    </div>
+
+    <!-- fluxo de funcionamento -->
+    <div class="pool-flow rv">
+      <div class="flow-step"><div class="fs-ico">☀️</div><div class="fs-t">Sol brilha</div><div class="fs-d">Luz incide sobre o LDR</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="fs-ico">🔆</div><div class="fs-t">LDR detecta</div><div class="fs-d">Resistência cai, tensão sobe</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="fs-ico">🧠</div><div class="fs-t">Arduino decide</div><div class="fs-d">Cruza luz + temperatura</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="fs-ico">⚙️</div><div class="fs-t">Bomba liga</div><div class="fs-d">Água circula pelas placas</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="fs-ico">🔥</div><div class="fs-t">Água esquenta</div><div class="fs-d">Retorna aquecida à piscina</div></div>
+    </div>
+
+    <!-- SIMULADOR -->
+    <div class="bench rv" style="margin-top:44px" id="poolBench">
+      <div class="bench-head">
+        <span class="dot"></span>
+        SIMULADOR · LÓGICA DE AQUECIMENTO
+        <span class="bench-sub">ARRASTE O SOL ↓</span>
+      </div>
+      <div class="pool-stage">
+        <div class="pool-visual">
+          <div class="pool-sun" id="poolSunTxt">☀️</div>
+          <div class="pool-water-wrap">
+            <div id="poolWater"></div>
+            <div class="pool-label">PISCINA DO CEP</div>
+          </div>
+          <div class="pool-pump" id="poolPump">BOMBA · DESLIGADA ⏸</div>
+        </div>
+        <div class="pool-panel">
+          <div class="pool-led-row">
+            <div id="poolLed"></div>
+            <div class="pool-status" id="poolStatus">● AQUECENDO — bomba ligada</div>
+          </div>
+          <div class="pool-reads">
+            <div><span class="label">Luz solar</span><span class="value" id="poolSolVal">70%</span></div>
+            <div><span class="label">Temp. água</span><span class="value" id="poolTempVal">22.0°C</span></div>
+            <div><span class="label">Temp. desejada</span><span class="value" id="poolTargetVal">30°C</span></div>
+          </div>
+          <div class="pool-slider">
+            <span>☁️</span>
+            <input type="range" id="poolSolSlider" min="0" max="100" value="70">
+            <span>☀️</span>
+          </div>
+          <div class="pool-slider">
+            <span>ALVO</span>
+            <input type="range" id="poolTargetSlider" min="20" max="40" value="30">
+            <span id="poolTargetLbl">30°C</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- código arduino -->
+    <div style="margin-top:44px" class="rv">
+      <h3 style="font-family:var(--fd);font-size:22px;margin-bottom:8px;text-align:center">Sketch para a piscina</h3>
+      <p style="text-align:center;color:var(--muted);margin-bottom:20px">LDR em A0 · LM35 em A1 · LED no pino 13 · bomba (via relé) no pino 8.</p>
+      <div class="codewrap">
+        <div class="codehead">
+          <span>piscina-cep.ino</span>
+          <button id="poolCopyBtn">COPIAR</button>
+        </div>
+        <pre id="poolCode" style="display:block">// Aquecimento solar da piscina do CEP
+// LDR em A0 | Sensor de temperatura (LM35) em A1 | LED em 13 | Bomba (relé) em 8
+
+const int pinoLDR   = A0;
+const int pinoTemp  = A1;   // LM35
+const int pinoLED   = 13;
+const int pinoBomba = 8;    // módulo relé
+
+const int   limiarLuz = 500;   // calibre pelo monitor serial
+const float tempAlvo  = 30.0;  // °C desejados
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(pinoLED, OUTPUT);
+  pinMode(pinoBomba, OUTPUT);
+}
+
+void loop() {
+  int luz = analogRead(pinoLDR);
+  float tempC = (analogRead(pinoTemp) * 5.0 / 1023.0) * 100.0;
+
+  bool temSol  = luz > limiarLuz;
+  bool precisa = tempC < tempAlvo;
+
+  if (temSol && precisa) {
+    digitalWrite(pinoBomba, HIGH); // liga a bomba
+    digitalWrite(pinoLED,   HIGH); // LED aceso = aquecendo
+  } else {
+    digitalWrite(pinoBomba, LOW);
+    digitalWrite(pinoLED,   LOW);
+  }
+
+  Serial.print("Luz: ");    Serial.print(luz);
+  Serial.print(" | Temp: "); Serial.print(tempC);
+  Serial.println(temSol && precisa ? " | AQUECENDO" : " | EM ESPERA");
+  delay(500);
+}</pre>
+      </div>
+    </div>
+
+    <div class="card rv" style="max-width:760px;margin:40px auto 0;border-left:3px solid var(--cyan)">
+      <p style="color:var(--ink)"><strong style="color:var(--cyan)">💡 Por que isso importa:</strong> em vez de um aquecedor elétrico ligado direto na tomada, o sistema usa o Sol como fonte principal e o LDR como “interruptor inteligente”. Resultado: água mais quente, conta de luz mais baixa e um projeto perfeito para aplicar na piscina do CEP.</p>
+    </div>
+
   </div>
 </section>
 
