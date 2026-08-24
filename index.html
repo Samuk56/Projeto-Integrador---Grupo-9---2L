@@ -493,7 +493,7 @@ footer{border-top:1px solid var(--line);background:#05070b;position:relative;ove
         <a class="btn btn-ghost" href="#datasheet">Abrir o datasheet</a>
       </div>
       <ul class="hero-chips rv d3">
-        <li>sem polaridade</li><li>saída analógica</li><li>pico em 540 nm</li><li>de R$ 2 a R$ 5</li><li>o clássico desde 1873</li>
+        <li>curva logarítmica</li><li>saída analógica</li><li>pico em 540 nm</li><li>de R$ 2 a R$ 5</li><li>o clássico desde 1873</li>
       </ul>
     </div>
 
@@ -550,12 +550,10 @@ footer{border-top:1px solid var(--line);background:#05070b;position:relative;ove
   <div class="ticker" aria-hidden="true">
     <div class="ticker-track" id="tickerTrack">
       <span>Sulfeto de cádmio · CdS</span><span>≥ 1 MΩ no escuro</span><span>≈ 500 Ω sob sol pleno</span>
-      <span>pico espectral 540 nm</span><span>sem polaridade</span><span>resposta em ~20 ms</span>
-      <span>divisor de tensão</span><span>A0 → 0 a 1023</span><span>fotocondutividade desde 1873</span>
-      <span>relaxamento lento no escuro</span><span>Sulfeto de cádmio · CdS</span><span>≥ 1 MΩ no escuro</span><span>≈ 500 Ω sob sol pleno</span>
-      <span>pico espectral 540 nm</span><span>sem polaridade</span><span>resposta em ~20 ms</span>
-      <span>divisor de tensão</span><span>A0 → 0 a 1023</span><span>fotocondutividade desde 1873</span>
-      <span>relaxamento lento no escuro</span>
+      <span>pico espectral 540 nm</span><span>curva logarítmica</span><span>baixo custo</span>
+      <span>sensor analógico</span><span>Sulfeto de cádmio · CdS</span><span>≥ 1 MΩ no escuro</span><span>≈ 500 Ω sob sol pleno</span>
+      <span>pico espectral 540 nm</span><span>curva logarítmica</span><span>baixo custo</span>
+      <span>sensor analógico</span>
     </div>
   </div>
 </section>
@@ -577,7 +575,7 @@ footer{border-top:1px solid var(--line);background:#05070b;position:relative;ove
         <h2 class="sec-title">O que é<br><span class="lite">um LDR?</span></h2>
         <p class="rv"><strong>LDR</strong> vem do inglês <em>Light Dependent Resistor</em> — resistor dependente de luz. Também é chamado de <strong>fotorresistor</strong> ou <strong>célula fotocondutiva</strong>, e pertence à família dos componentes passivos: ele não amplifica nem chaveia nada sozinho; apenas <strong>muda de resistência</strong> conforme a luz que recebe.</p>
         <p class="rv d1">A regra de ouro é simples: <strong>mais luz → menos resistência</strong>. No escuro total, um LDR típico pode passar de 1 MΩ; sob luz intensa, cai para algumas centenas de ohms. Essa variação gigantesca (milhares de vezes!) é o que o torna perfeito para detectar dia e noite.</p>
-        <p class="rv d2">Ele <strong>não tem polaridade</strong>: pode ser ligado em qualquer sentido, como um resistor comum. E por ser analógico e contínuo, responde gradualmente — diferente de um sensor digital que entrega apenas “claro/escuro”.</p>
+        <p class="rv d2">Ele é um componente puramente resistivo: pode ser ligado em qualquer sentido, como um resistor comum. E por ser analógico e contínuo, responde gradualmente — diferente de um sensor digital que entrega apenas “claro/escuro”.</p>
         <ul class="mini-list rv d3">
           <li><b>GRANDEZA</b><span>Resistência elétrica (Ω), variável com a iluminância (lux)</span></li>
           <li><b>MATERIAL</b><span>Semicondutor de sulfeto de cádmio (CdS) sobre substrato cerâmico</span></li>
@@ -844,7 +842,7 @@ footer{border-top:1px solid var(--line);background:#05070b;position:relative;ove
       <h4>✚ Como testar com um multímetro</h4>
       <ol>
         <li>Coloque o multímetro na escala mais alta de resistência (2 MΩ ou auto).</li>
-        <li>Toque as pontas nos dois terminais do LDR — a ordem não importa, ele não tem polaridade.</li>
+        <li>Toque as pontas nos dois terminais do LDR — a ordem é indiferente por ser um componente resistivo.</li>
         <li>Ilumine a face com uma lanterna: a leitura deve cair de centenas de kΩ para poucos kΩ. Tampe com a mão e veja subir lentamente.</li>
       </ol>
     </div>
@@ -1183,8 +1181,8 @@ void loop() {
     <h2 class="sec-title">Perguntas <span class="lite">da bancada</span></h2>
 
     <div class="faq-list">
-      <div class="acc rv"><button class="acc-btn" aria-expanded="false"><span class="qm">Q·01</span>O LDR tem polaridade?<span class="plus">+</span></button>
-        <div class="acc-body"><div><p><b>Não.</b> Ele é um resistor puro: pode ligar os terminais em qualquer sentido, em corrente contínua ou alternada. Isso simplifica muito a montagem — impossível ligar “invertido”.</p></div></div></div>
+      <div class="acc rv"><button class="acc-btn" aria-expanded="false"><span class="qm">Q·01</span>O LDR pode ser ligado em qualquer sentido?<span class="plus">+</span></button>
+        <div class="acc-body"><div><p><b>Sim.</b> Ele é um resistor puro: pode ligar os terminais em qualquer sentido, em corrente contínua ou alternada. Isso simplifica muito a montagem — impossível ligar “invertido”.</p></div></div></div>
       <div class="acc rv"><button class="acc-btn" aria-expanded="false"><span class="qm">Q·02</span>Qual resistência esperar no escuro e na luz?<span class="plus">+</span></button>
         <div class="acc-body"><div><p>Num GL5528 típico: <b>≥ 500 kΩ</b> (frequentemente vários MΩ) no escuro total, <b>5–20 kΩ</b> em ambiente interno (~10 lx) e <b>menos de 1 kΩ</b> sob luz forte. Valores variam ±30% conforme fabricante e lote.</p></div></div></div>
       <div class="acc rv"><button class="acc-btn" aria-expanded="false"><span class="qm">Q·03</span>Por que o LDR é tão lento para “apagar”?<span class="plus">+</span></button>
