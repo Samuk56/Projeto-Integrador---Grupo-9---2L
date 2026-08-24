@@ -262,7 +262,7 @@
   // ========== ACORDEÃO ==========
   function initAccordion() {
     $$('.acc-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
+      btn.addEventListener('click', (e) => {
         const item = btn.parentElement;
         const open = item.classList.contains('open');
         
@@ -278,7 +278,7 @@
           btn.setAttribute('aria-expanded', 'true');
           
           // Adiciona efeito de ripple
-          createRipple(btn, event);
+          createRipple(btn, e);
         }
       });
     });

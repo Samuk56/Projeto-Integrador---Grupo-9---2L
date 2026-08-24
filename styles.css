@@ -1122,6 +1122,13 @@ section {
   color: var(--cyan);
 }
 
+
+/* ============ FAQ ============ */
+.faq-list {
+  max-width: 860px;
+  margin: 54px auto 0;
+}
+
 /* ============ ACORDEÃO ============ */
 .acc {
   background: var(--panel);
