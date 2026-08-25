@@ -382,9 +382,10 @@ table.cmp tbody tr:hover{background:rgba(92,232,197,.03)}
 
 /* ============ FAQ ============ */
 .faq-list{max-width:860px;margin:54px auto 0}
-.acc{border:1px solid var(--line);border-radius:var(--r);margin-bottom:12px;background:var(--panel);overflow:hidden;transition:border-color .3s}
-.acc.open{border-color:rgba(255,181,74,.5)}
-.acc-btn{width:100%;display:flex;align-items:center;gap:18px;padding:20px 24px;background:none;border:none;color:var(--ink);text-align:left;font-family:var(--fd);font-size:16px;font-weight:600;letter-spacing:.02em}
+.acc{border:1px solid var(--line);border-radius:var(--r);margin-bottom:12px;background:var(--panel);overflow:hidden;transition:border-color .3s,box-shadow .3s,transform .3s}
+.acc.open{border-color:rgba(255,181,74,.5);box-shadow:0 8px 30px rgba(255,181,74,.15);transform:translateY(-2px)}
+.acc-btn{width:100%;display:flex;align-items:center;gap:18px;padding:20px 24px;background:none;border:none;color:var(--ink);text-align:left;font-family:var(--fd);font-size:16px;font-weight:600;letter-spacing:.02em;transition:background .25s}
+.acc-btn:hover{background:rgba(255,181,74,.05)}
 .acc-btn .qm{font-family:var(--fm);color:var(--amber);font-size:13px;flex:none}
 .acc-btn .plus{margin-left:auto;color:var(--amber);font-size:20px;transition:transform .35s;flex:none}
 .acc.open .plus{transform:rotate(45deg)}
@@ -393,6 +394,15 @@ table.cmp tbody tr:hover{background:rgba(92,232,197,.03)}
 .acc-body>div{overflow:hidden}
 .acc-body p{padding:0 24px 22px 60px;color:var(--muted);font-size:15px}
 .acc-body b{color:var(--cyan)}
+
+/* ============ FAQ POPUP ============ */
+.faq-popup{position:fixed;z-index:999;display:none;opacity:0;transition:opacity .3s ease,transform .3s ease}
+.faq-popup.visible{opacity:1;transform:translateY(0)}
+.faq-popup-content{background:var(--panel);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,181,74,.3);border-radius:var(--r);padding:20px 24px;box-shadow:0 12px 40px rgba(0,0,0,.4),0 0 30px rgba(255,181,74,.15);animation:popupSlide .3s ease}
+@keyframes popupSlide{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
+.faq-popup-question{font-family:var(--fd);font-size:14px;font-weight:600;color:var(--amber);margin-bottom:12px;text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid var(--line-soft);padding-bottom:10px}
+.faq-popup-answer{font-family:var(--fb);font-size:14px;color:var(--muted);line-height:1.7}
+.faq-popup-answer b{color:var(--cyan)}
 
 /* ============ FOOTER ============ */
 footer{border-top:1px solid var(--line);background:#05070b;position:relative;overflow:hidden}
@@ -1458,6 +1468,79 @@ $$('.acc-btn').forEach(b=>b.addEventListener('click',()=>{
   $$('.acc').forEach(a=>{a.classList.remove('open'); a.querySelector('.acc-btn').setAttribute('aria-expanded','false');});
   if(!open){ item.classList.add('open'); b.setAttribute('aria-expanded','true'); }
 }));
+
+/* ---------- popup menu para perguntas da bancada ---------- */
+const faqMenu = document.createElement('div');
+faqMenu.id = 'faqPopup';
+faqMenu.className = 'faq-popup';
+document.body.appendChild(faqMenu);
+
+$$('.acc-btn').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const item = btn.parentElement;
+    const isOpen = item.classList.contains('open');
+    
+    // Fecha todos os outros
+    $$('.acc').forEach(a => {
+      if (a !== item) {
+        a.classList.remove('open');
+        a.querySelector('.acc-btn')?.setAttribute('aria-expanded', 'false');
+      }
+    });
+    
+    // Toggle do atual
+    if (!isOpen) {
+      item.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+      
+      // Mostra popup com a resposta
+      const question = btn.textContent.trim();
+      const answerBody = item.querySelector('.acc-body p');
+      const answer = answerBody ? answerBody.innerHTML : '';
+      
+      showFaqPopup(question, answer, btn);
+    } else {
+      item.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+      hideFaqPopup();
+    }
+  });
+});
+
+function showFaqPopup(question, answer, triggerBtn) {
+  const rect = triggerBtn.getBoundingClientRect();
+  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  
+  faqMenu.innerHTML = `
+    <div class="faq-popup-content">
+      <div class="faq-popup-question">${question}</div>
+      <div class="faq-popup-answer">${answer}</div>
+    </div>
+  `;
+  
+  faqMenu.style.display = 'block';
+  faqMenu.style.left = rect.left + 'px';
+  faqMenu.style.top = (rect.bottom + scrollTop + 8) + 'px';
+  faqMenu.style.width = Math.min(rect.width, 500) + 'px';
+  faqMenu.classList.add('visible');
+}
+
+function hideFaqPopup() {
+  faqMenu.classList.remove('visible');
+  setTimeout(() => {
+    if (!faqMenu.classList.contains('visible')) {
+      faqMenu.style.display = 'none';
+    }
+  }, 300);
+}
+
+// Fecha o popup ao clicar fora
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.acc') && !e.target.closest('#faqPopup')) {
+    hideFaqPopup();
+  }
+});
 
 /* ---------- lightbox ---------- */
 const lb=$('#lightbox'), lbImg=$('#lbImg'), lbCap=$('#lbCap');
