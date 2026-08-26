@@ -766,13 +766,16 @@ function initPoolCopy() {
       return;
     }
 
-    // Inicializa todas as funcionalidades
+    // Detecta se é dispositivo de baixo desempenho
+    const isLowEnd = (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) ||
+                     (navigator.deviceMemory && navigator.deviceMemory <= 4) ||
+                     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+    // Inicializa funcionalidades essenciais
     initBenchSlider();
     initReveal();
     initProgress();
     initHeaderScroll();
-    // initTorch(); // Efeito de tocha removido
-    initBackgroundAnimations(); // Nova animação de fundo
     initCodeTabs();
     initCopyBtn();
     initSerialMonitor();
@@ -786,18 +789,22 @@ function initPoolCopy() {
     initPoolSim();
     initPoolCopy();
 
-    // Efeitos visuais opcionais
-    // initTiltEffect();
-    // initParticles();
-    // initNumberAnimations();
+    // Efeitos visuais - apenas em dispositivos bons
+    if (!isLowEnd) {
+      initBackgroundAnimations();
+      // initTiltEffect();
+      // initParticles();
+      // initNumberAnimations();
+    }
 
     // Atualiza simulador inicial
     updateSim();
 
-    console.log('%c🔆 SENSOR LDR — Animações de Fundo', 'color: #ffb54a; font-size: 16px; font-weight: bold;');
-    console.log('%cSite carregado com sucesso!', 'color: #5ce8c5;');
+    console.log('%c🔆 SENSOR LDR — Otimizado', 'color: #ffb54a; font-size: 16px; font-weight: bold;');
+    console.log('%cPerformance adaptada ao dispositivo', 'color: #5ce8c5;');
   }
 
-  // Inicia
+
   init();
 })();
+

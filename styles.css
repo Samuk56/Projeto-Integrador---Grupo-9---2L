@@ -53,7 +53,6 @@ body {
   line-height: 1.65;
   overflow-x: hidden;
   min-height: 100vh;
-  animation: gradientFlow 15s ease infinite;
 }
 
 body::before {
@@ -71,7 +70,32 @@ body::before {
     radial-gradient(ellipse at 70% 20%, rgba(125, 224, 138, 0.1) 0%, transparent 50%);
   pointer-events: none;
   z-index: 0;
-  animation: bgShift 20s ease-in-out infinite;
+}
+
+/* Animações de fundo - apenas em desktops potentes */
+@media (prefers-reduced-motion: no-preference) and (min-width: 1025px) {
+  body {
+    animation: gradientFlow 15s ease infinite;
+  }
+
+  body::before {
+    animation: bgShift 20s ease-in-out infinite;
+  }
+}
+
+/* Versão estática para mobile e PCs fracos - sem animações pesadas */
+@media (prefers-reduced-motion: reduce), (max-width: 1024px) {
+  body {
+    animation: none;
+  }
+  
+  body::before {
+    animation: none;
+    background:
+      radial-gradient(ellipse at 20% 30%, rgba(255, 139, 31, 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 70%, rgba(92, 232, 197, 0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, rgba(180, 100, 255, 0.04) 0%, transparent 70%);
+  }
 }
 
 body::after {
@@ -1568,3 +1592,23 @@ footer {
 .flow-step .fs-d{font-size:12px;color:var(--muted);line-height:1.5;}
 .flow-arrow{align-self:center;color:var(--amber);font-size:20px;opacity:.6;}
 @media(max-width:700px){.flow-arrow{display:none;}}
+/* === OTIMIZAÇÕES DE PERFORMANCE === */
+/* will-change para elementos animados - ajuda GPU a otimizar */
+.hero-title, .card, .bench, .rv {
+  will-change: transform, opacity;
+}
+
+/* Remover will-change após animação terminar (via JS) */
+.will-change-done {
+  will-change: auto;
+}
+
+/* Hardware acceleration para transforms */
+.card:hover, .btn:hover {
+  transform: translateZ(0);
+}
+
+/* Otimizar grain animation */
+.noise {
+  will-change: transform;
+}
